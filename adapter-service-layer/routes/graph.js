@@ -20,7 +20,7 @@ router.post("/", async (req, res, next) => {
     const urlToFetch = chartURLGeneration.getUrl();
 
     // Get graph
-    const graph = await axios.get(urlToFetch, {responseType: 'arraybuffer'})
+    axios.get(urlToFetch, {responseType: 'arraybuffer'})
         .then(graph => {
             res.set("Content-Type", "image/png");
             res.send(graph.data);
