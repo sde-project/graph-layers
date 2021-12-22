@@ -36,6 +36,56 @@ const docs = {
                 type: "string",
                 format: "binary",
             },
+            GraphConfiguration: {
+                type: "object",
+                properties: {
+                    type: {
+                        type: "string"
+                    },
+                    datasets: {
+                        type: "array",
+                        items: {
+                            Dataset: {
+                                type: "object",
+                                properties: {
+                                    type: {
+                                        type: "string",
+                                    },
+                                    label: {
+                                        type: "string"
+                                    },
+                                    data: {
+                                        type: "array",
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    options: {
+                        type: "object",
+                        properties: {
+                            plugins: {
+                                type: "object",
+                                properties: {
+                                    annotation: {
+                                        type: "object",
+                                        properties: {
+                                            annotations: {
+                                                type: "array",
+                                                items: {
+                                                    Annotation: {
+                                                        type: "object"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             News: {
                 type: "object",
                 properties: {
@@ -59,6 +109,33 @@ const docs = {
                     $ref: "#/components/schemas/News"
                 }
             },
+            Exchange: {
+                type: "object",
+                properties: {
+                    exchange: {
+                        type: "string"
+                    },
+                    crypto: {
+                        type: "string"
+                    },
+                    price: {
+                        type: "number"
+                    },
+                    operation: {
+                        type: "string"
+                    },
+                    date: {
+                        type: "string",
+                        format: "date-time"
+                    }
+                }
+            },
+            ArrayOfExchanges: {
+                type: "array",
+                items: {
+                    $ref: "#/components/schemas/Exchange"
+                }
+            },
             GraphRequest: {
                 type: "object",
                 properties: {
@@ -66,7 +143,7 @@ const docs = {
                         $ref: "#/components/schemas/ArrayOfNews"
                     },
                     exchanges: {
-                        type: "object"
+                        $ref: "#/components/schemas/ArrayOfExchanges"
                     }
                 },
             }
@@ -118,6 +195,16 @@ const docs = {
                     "image/png": {
                         schema: {
                             $ref: "#/components/schemas/Graph"
+                        }
+                    }
+                }
+            },
+            GraphConfiguration: {
+                description: "Chart.JS graph configuration",
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/GraphConfiguration"
                         }
                     }
                 }
