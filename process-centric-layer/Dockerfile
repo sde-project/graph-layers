@@ -4,5 +4,5 @@ COPY package.json /app
 RUN npm install
 COPY . /app
 CMD npm run start
-ENV GRAPH_BUSINESS_HOST=http://graph-business-logic:9101
+ENV GRAPH_BUSINESS_HOST=http://graph-business-logic:8000
 EXPOSE 8000
