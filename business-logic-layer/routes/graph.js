@@ -76,7 +76,7 @@ router.post("/image", async (req, res, next) => {
   };
 
   // Generate graph
-  axios.post(`http://${host}/graph`, configuration, { responseType: 'arraybuffer' })
+  axios.post(`${host}/graph`, configuration, { responseType: 'arraybuffer' })
     .then(graph => {
       res.set("Content-Type", "image/png");
       res.send(graph.data);
