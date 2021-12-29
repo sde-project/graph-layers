@@ -32,6 +32,60 @@ const docs = {
                     }
                 }
             },
+            Graph: {
+                type: "string",
+                format: "binary",
+            },
+            GraphConfiguration: {
+                type: "object",
+                properties: {
+                    type: {
+                        type: "string"
+                    },
+                    datasets: {
+                        type: "array",
+                        items: {
+                            Dataset: {
+                                type: "object",
+                                properties: {
+                                    type: {
+                                        type: "string",
+                                    },
+                                    label: {
+                                        type: "string"
+                                    },
+                                    data: {
+                                        type: "array",
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    options: {
+                        type: "object",
+                        properties: {
+                            plugins: {
+                                type: "object",
+                                properties: {
+                                    annotation: {
+                                        type: "object",
+                                        properties: {
+                                            annotations: {
+                                                type: "array",
+                                                items: {
+                                                    Annotation: {
+                                                        type: "object"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             News: {
                 type: "object",
                 properties: {
@@ -101,6 +155,26 @@ const docs = {
                     }
                 }
             },
+            Graph: {
+                description: "PNG of the graph",
+                content: {
+                    "binary": {
+                        schema: {
+                            $ref: "#/components/schemas/Graph"
+                        }
+                    }
+                }
+            },
+            GraphConfiguration: {
+                description: "Chart.js configuration of the graph",
+                content: {
+                    "application/json": {
+                        schema: {
+                            $ref: "#/components/schemas/GraphConfiguration"
+                        }
+                    }
+                }
+            }
         },
         securitySchemes: {
             api_key: {
@@ -110,9 +184,9 @@ const docs = {
             },
         },
         parameters: {
-            CurrencyPath: {
+            Currency: {
                 name: "currency",
-                in: "path",
+                in: "query",
                 schema: {
                     type: "string"
                 }
@@ -132,6 +206,16 @@ const docs = {
                     type: "string"
                 },
                 required: true
+            },
+            TypeOfExchange: {
+                name: "exchange",
+                in: "query",
+                schema: {
+                    type: "array",
+                    items: {
+                        type: "string"
+                    }
+                },
             }
         }
     },

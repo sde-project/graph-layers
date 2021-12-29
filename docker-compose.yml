@@ -1,13 +1,14 @@
 version: "3"
 networks:
-  graph:
+  sde:
+    external: true
 services:
   graph-adapter:
     build: ./adapter-service-layer
     ports:
       - 9100:8000
     networks:
-      - graph
+      - sde
   graph-business-logic:
     build: ./business-logic-layer
     depends_on:
@@ -15,7 +16,7 @@ services:
     ports:
       - 9101:8000
     networks:
-      - graph
+      - sde
   graph-process-centric:
     build: ./process-centric-layer
     depends_on:
@@ -23,4 +24,4 @@ services:
     ports:
       - 9102:8000
     networks:
-      - graph
+      - sde

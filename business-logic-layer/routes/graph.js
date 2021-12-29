@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const { EXCHANGES_COLORS_MAP } = require('../constants');
 
 const {
   generateAnnotations,
@@ -41,20 +42,27 @@ router.post("/image", async (req, res, next) => {
   const dataForDataset = generateDataFromExchanges(req.body.exchanges);
   const annotations = generateAnnotations(filteredNews);
 
-  // Define chart.js configuration - DEBUG define a constant one
+  let datasets = [];
+  for (let i = 0; i < dataForDataset[0].length; i++) {
+    datasets.push({
+      "type": "line",
+      "label": "Prices in $ of " + dataForDataset[0][i],
+      "borderColor": EXCHANGES_COLORS_MAP[dataForDataset[0][i]],
+      "borderWidth": 2,
+      "fill": false,
+      "pointRadius": 0,
+      "data": dataForDataset[1][i]
+    });
+  }
+
+  console.log("DATA: ", dataForDataset[1][0]);
+
+  // Define chart.js configuration
   let configuration = {
     "type": "line",
     "data": {
       "labels": labels,
-      "datasets": [{
-        "type": "line",
-        "label": "Prices in $",
-        "borderColor": "purple",
-        "borderWidth": 2,
-        "fill": false,
-        "pointRadius": 0,
-        "data": dataForDataset
-      }]
+      "datasets": datasets
     },
     "options": {
       "responsive": true,
@@ -81,7 +89,7 @@ router.post("/image", async (req, res, next) => {
       res.set("Content-Type", "image/png");
       res.send(graph.data);
     })
-    .catch(e => next(e));
+    .catch(e => res.status(e.response.status).json({"error": e.response.statusText}));
 });
 
 /**
@@ -114,20 +122,25 @@ router.post("/configuration", async (req, res, next) => {
   const dataForDataset = generateDataFromExchanges(req.body.exchanges);
   const annotations = generateAnnotations(filteredNews);
 
-  // Define chart.js configuration - DEBUG define a constant one
+  let datasets = [];
+  for (let i = 0; i < dataForDataset[0].length; i++) {
+    datasets.push({
+      "type": "line",
+      "label": "Prices in $ of " + dataForDataset[0][i],
+      "borderColor": EXCHANGES_COLORS_MAP[dataForDataset[0][i]],
+      "borderWidth": 2,
+      "fill": false,
+      "pointRadius": 0,
+      "data": dataForDataset[1][i]
+    });
+  }
+
+  // Define chart.js configuration
   let configuration = {
     "type": "line",
     "data": {
       "labels": labels,
-      "datasets": [{
-        "type": "line",
-        "label": "Prices in $",
-        "borderColor": "purple",
-        "borderWidth": 2,
-        "fill": false,
-        "pointRadius": 0,
-        "data": dataForDataset
-      }]
+      "datasets": datasets
     },
     "options": {
       "responsive": true,
@@ -148,7 +161,7 @@ router.post("/configuration", async (req, res, next) => {
     }
   };
 
-  res.status(200).json(configuration);
+  res.status(200).send(configuration);
 });
 
 module.exports = router;
