@@ -26,8 +26,8 @@ router.post("/image", async (req, res, next) => {
 
   // Make the news visible only if they are not too much close to each other
   let filteredNews = [];
-  const minExchangeDate = new Date(req.body.exchanges[0].date);
-  const maxExchangeDate = new Date(req.body.exchanges[req.body.exchanges.length - 1].date);
+  const minExchangeDate = new Date(labels[0]);
+  const maxExchangeDate = new Date(labels[labels.length-1]);
   const diffExchangeDate = maxExchangeDate - minExchangeDate;
   const orderedNews = orderNewsByDate(req.body.news);
   let previous = -1;
@@ -104,8 +104,8 @@ router.post("/configuration", async (req, res, next) => {
 
   // Make the news visible only if they are not too much close to each other
   let filteredNews = [];
-  const minExchangeDate = new Date(req.body.exchanges[0].date);
-  const maxExchangeDate = new Date(req.body.exchanges[req.body.exchanges.length - 1].date);
+  const minExchangeDate = new Date(labels[0]);
+  const maxExchangeDate = new Date(labels[labels.length-1]);
   const diffExchangeDate = maxExchangeDate - minExchangeDate;
   const orderedNews = orderNewsByDate(req.body.news);
   let previous = -1;
