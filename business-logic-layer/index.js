@@ -51,6 +51,6 @@ adapterLayer.use((err, req, res, next) => {
 });
 
 // Start server
-adapterLayer.listen(process.env.PORT || 8001, () => {
-    console.log(`Graph Business Logic Layer listening on port ${process.env.PORT || 8001}`);
+adapterLayer.listen(process.env.PORT || 8000, () => {
+    console.log(`Graph Business Logic Layer listening on port ${process.env.PORT || 8000}`);
 });

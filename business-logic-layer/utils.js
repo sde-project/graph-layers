@@ -84,20 +84,25 @@ function generateAnnotations(newsArray) {
 
 function generateLabelsFromExchanges(exchanges) {
     let labels = [];
-    for (const exchange in exchanges) {
-        if (Object.hasOwnProperty.call(exchanges, exchange)) {
-            labels.push(exchanges[exchange].date);
+    if (exchanges.length > 0) {
+        const element = exchanges[0];
+        for (let el of Object.values(element)[0]) {
+            labels.push(el.date);
         }
     }
     return labels;
 }
 
 function generateDataFromExchanges(exchanges) {
-    let data = [];
+    let data = [[], []];
     for (const exchange in exchanges) {
         if (Object.hasOwnProperty.call(exchanges, exchange)) {
             const element = exchanges[exchange];
-            data.push(element.price);
+            data[0].push(Object.keys(element)[0]);
+            data[1].push([]);
+            for(const el of Object.values(element)[0]) {
+                data[1][data[1].length-1].push(el.price);
+            }
         }
     }
     return data;

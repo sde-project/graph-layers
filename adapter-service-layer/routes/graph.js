@@ -13,14 +13,17 @@ router.post("/", async (req, res, next) => {
         });
     }
 
-    // Generate graph URL
-    const chartURLGeneration = new QuickChart();
-    chartURLGeneration.setVersion("3");
-    chartURLGeneration.setConfig(req.body);
-    const urlToFetch = chartURLGeneration.getUrl();
+    // Generate body for quickchart request
+    const requestBody = {
+        width: 500,
+        height: 300,
+        backgroundColor: "#ffffff",
+        format: "png",
+        version: 3,
+        chart: req.body
+    }
 
-    // Get graph
-    axios.get(urlToFetch, {responseType: 'arraybuffer'})
+    axios.post("https://quickchart.io/chart", requestBody, {responseType: 'arraybuffer'})
         .then(graph => {
             res.set("Content-Type", "image/png");
             res.send(graph.data);
