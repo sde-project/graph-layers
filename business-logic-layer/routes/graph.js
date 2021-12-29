@@ -55,8 +55,6 @@ router.post("/image", async (req, res, next) => {
     });
   }
 
-  console.log("DATA: ", dataForDataset[1][0]);
-
   // Define chart.js configuration
   let configuration = {
     "type": "line",
