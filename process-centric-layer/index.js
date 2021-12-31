@@ -20,15 +20,6 @@ processLayer.use(cors());
 // Documentation
 processLayer.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
-// Check permissions
-processLayer.use((req, res, next) => {
-    if (req.headers.authorization !== process.env.GRAPHS_PROCESS_CENTRIC_API_KEY) {
-        return res.status(401).send({ error: "Unauthorized" })
-    } else {
-        next();
-    }
-});
-
 // API endpoints
 processLayer.use('/graph/', graph);
 
