@@ -85,9 +85,18 @@ function generateAnnotations(newsArray) {
 function generateLabelsFromExchanges(exchanges) {
     let labels = [];
     if (exchanges.length > 0) {
-        const element = exchanges[0];
-        for (let el of Object.values(element)[0]) {
-            labels.push(el.date);
+        // Search for the first exchange with some labels
+        let i = 0;
+        for (i = 0; i < exchanges.length; i++) {
+            if (Object.values(exchanges[i])[0].length > 0) {
+                break;
+            }
+        }
+        if (i < exchanges.length) {
+            const element = exchanges[i];
+            for (let el of Object.values(element)[0]) {
+                labels.push(el.date);
+            }
         }
     }
     return labels;
