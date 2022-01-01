@@ -33,13 +33,15 @@ router.get("/image", async (req, res, next) => {
         headers: {
             Authorization: process.env.NEWS_BUSINESS_API_KEY
         }
-    }).catch(e => {
-        return res.status(e.response.status).json({"error": e.response.statusText});
-    }).then(res => res.data);
+    })
+        .then(result => result.data)
+        .catch(e => {
+            return res.status(e.response.status).json({"error": e.response.statusText});
+        });
     
     let exchanges = [];
     for (let i = 0; i < exgs.length; i++) {
-        const res = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/buy/exchange/${exgs[i]}`, {
+        const result = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/buy/exchange/${exgs[i]}`, {
             headers: {
                 Authorization: process.env.EXCHANGES_DATA_API_KEY
             }
@@ -47,7 +49,7 @@ router.get("/image", async (req, res, next) => {
             return res.status(e.response.status).json({"error": e.response.statusText});
         });
         let toPush = {};
-        toPush[exgs[i]] = res.data;
+        toPush[exgs[i]] = result.data;
         exchanges.push(toPush);
     }
 
@@ -93,13 +95,15 @@ router.get("/configuration", async (req, res, next) => {
         headers: {
             Authorization: process.env.NEWS_BUSINESS_API_KEY
         }
-    }).catch(e => {
-        return res.status(e.response.status).json({"error": e.response.statusText});
-    }).then(res => res.data);
+    })
+        .then(result => result.data)
+        .catch(e => {
+            return res.status(e.response.status).json({"error": e.response.statusText});
+        });
     
     let exchanges = [];
     for (let i = 0; i < exgs.length; i++) {
-        const res = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/buy/exchange/${exgs[i]}`, {
+        const result = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/buy/exchange/${exgs[i]}`, {
             headers: {
                 Authorization: process.env.EXCHANGES_DATA_API_KEY
             }
@@ -107,7 +111,7 @@ router.get("/configuration", async (req, res, next) => {
             return res.status(e.response.status).json({"error": e.response.statusText});
         });
         let toPush = {};
-        toPush[exgs[i]] = res.data;
+        toPush[exgs[i]] = result.data;
         exchanges.push(toPush);
     }
 

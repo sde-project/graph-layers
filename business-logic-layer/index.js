@@ -14,7 +14,7 @@ const graph = require('./routes/graph');
 require('dotenv').config();
 
 // Middlewares
-adapterLayer.use(express.json());
+adapterLayer.use(express.json({limit: '50mb'}));
 adapterLayer.use(morgan("dev"));
 adapterLayer.use(cors());
 

@@ -111,7 +111,7 @@ router.post("/configuration", async (req, res, next) => {
   let previous = -1;
   for (let i = 0; i < orderedNews.length; i++) {
     const newsDate = new Date(orderedNews[i].publishedAt);
-    if ((previous == -1 || (newsDate - previous > diffExchangeDate / 5)) && (newsDate.getTime() >= minExchangeDate && newsDate.getTime() <= maxExchangeDate)) {
+    if ((previous == -1 || (newsDate - previous > diffExchangeDate / 9)) && (newsDate.getTime() >= minExchangeDate && newsDate.getTime() <= maxExchangeDate)) {
       filteredNews.push(orderedNews[i]);
       previous = newsDate;
     }
@@ -141,8 +141,7 @@ router.post("/configuration", async (req, res, next) => {
       "datasets": datasets
     },
     "options": {
-      "responsive": true,
-      "maintainAspectRatio": false,
+      "maintainAspectRatio": true,
       "plugins": {
         "annotation": {
           "annotations": annotations

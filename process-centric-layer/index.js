@@ -13,7 +13,7 @@ const graph = require('./routes/graph');
 require('dotenv').config();
 
 // Middlewares
-processLayer.use(express.json());
+processLayer.use(express.json({limit: '50mb'}));
 processLayer.use(morgan("dev"));
 processLayer.use(cors());
 

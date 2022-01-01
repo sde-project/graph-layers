@@ -58,7 +58,7 @@ function generateAnnotationFromNews(news, isEven) {
             "padding": 10,
             "position": "start",
             "font": {
-                "size": 5
+                "size": 12
             },
             "yAdjust": isEven ? 45 : 0,
             "content": formatLabel(news.title, 30),
