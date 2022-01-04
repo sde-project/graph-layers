@@ -13,6 +13,10 @@ const docs = {
     },
     servers: [
         {
+            url: "https://cryptodashboard.it/",
+            description: "Production server",
+        },
+        {
             url: "http://localhost:8000/",
             description: "Local server",
         }
