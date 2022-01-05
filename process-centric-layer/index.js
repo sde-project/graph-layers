@@ -18,7 +18,7 @@ processLayer.use(morgan("dev"));
 processLayer.use(cors());
 
 // Documentation
-processLayer.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
+processLayer.use('/graph/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 // API endpoints
 processLayer.use('/graph/', graph);
