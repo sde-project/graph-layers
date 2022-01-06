@@ -211,6 +211,14 @@ const docs = {
                 },
                 required: true
             },
+            Operation: {
+                name: "operation",
+                in: "query",
+                schema: {
+                    type: "string"
+                },
+                required: true
+            },
             TypeOfExchange: {
                 name: "exchange",
                 in: "query",

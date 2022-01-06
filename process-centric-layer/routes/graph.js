@@ -1,22 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const { EXCHANGES, CRYPTOS } = require('../constants');
+const { EXCHANGES, CRYPTOS, OPERATIONS } = require('../constants');
 
 router.get("/image", async (req, res, next) => {
     // Check if the request is valid
-    if (!req.query.from || !req.query.to || !req.query.currency) {
+    if (!req.query.from || !req.query.to || !req.query.currency || !req.query.operation) {
         return res.status(400).json({
-            error: "Bad Request - the query parameters from, to and currency must be provided"
+            error: "Bad Request - the query parameters from, to, currency and operation must be provided"
         });
     }
 
-    // Get time frame
     const currency = req.query.currency;
+    const operation = req.query.operation;
 
     if (CRYPTOS.indexOf(currency) == -1) {
         return res.status(400).json({
             error: `Bad Request - the specified currency is not valid. Valid currencies are: ${CRYPTOS.join(",")}`
+        });
+    }
+
+    if (OPERATIONS.indexOf(operation) == -1) {
+        return res.status(400).json({
+            error: `Bad Request - the specified operation is not valid. Valid operations are: ${OPERATIONS.join(",")}`
         });
     }
 
@@ -41,7 +47,7 @@ router.get("/image", async (req, res, next) => {
     
     let exchanges = [];
     for (let i = 0; i < exgs.length; i++) {
-        const result = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/buy/exchange/${exgs[i]}`, {
+        const result = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/${operation}/exchange/${exgs[i]}`, {
             headers: {
                 Authorization: process.env.EXCHANGES_DATA_API_KEY
             }
@@ -67,18 +73,24 @@ router.get("/image", async (req, res, next) => {
 
 router.get("/configuration", async (req, res, next) => {
     // Check if the request is valid
-    if (!req.query.from || !req.query.to || !req.query.currency) {
+    if (!req.query.from || !req.query.to || !req.query.currency || !req.query.operation) {
         return res.status(400).json({
-            error: "Bad Request - the query parameters from, to and currency must be provided"
+            error: "Bad Request - the query parameters from, to, currency and operation must be provided"
         });
     }
 
-    // Get time frame
     const currency = req.query.currency;
+    const operation = req.query.operation;
 
     if (CRYPTOS.indexOf(currency) == -1) {
         return res.status(400).json({
             error: `Bad Request - the specified currency is not valid. Valid currencies are: ${CRYPTOS.join(",")}`
+        });
+    }
+
+    if (OPERATIONS.indexOf(operation) == -1) {
+        return res.status(400).json({
+            error: `Bad Request - the specified operation is not valid. Valid operations are: ${OPERATIONS.join(",")}`
         });
     }
 
@@ -103,7 +115,7 @@ router.get("/configuration", async (req, res, next) => {
     
     let exchanges = [];
     for (let i = 0; i < exgs.length; i++) {
-        const result = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/buy/exchange/${exgs[i]}`, {
+        const result = await axios.get(`${exchangesHost}/price/crypto/${currency}/from/${req.query.from}/to/${req.query.to}/operation/${operation}/exchange/${exgs[i]}`, {
             headers: {
                 Authorization: process.env.EXCHANGES_DATA_API_KEY
             }

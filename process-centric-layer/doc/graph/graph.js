@@ -14,6 +14,9 @@ const graph = {
                     $ref: "#/components/parameters/ToDate"
                 },
                 {
+                    $ref: "#/components/parameters/Operation"
+                },
+                {
                     $ref: "#/components/parameters/TypeOfExchange"
                 }
             ],
@@ -46,6 +49,9 @@ const graph = {
                 },
                 {
                     $ref: "#/components/parameters/ToDate"
+                },
+                {
+                    $ref: "#/components/parameters/Operation"
                 },
                 {
                     $ref: "#/components/parameters/TypeOfExchange"
